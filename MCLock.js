@@ -6,18 +6,17 @@ ClockPainting();  // Main Drawing
 
 function MCManCalculate(){
     document.getElementById("ManContrID").checked = 1; //  switch to manual
-
-    PrintValues();
-    //setTimeout("PrintValues()", 1);
-    //console.log(document.getElementById("ManContrID").checked);
+    PrintValues();   // Fill text values
+    ClockPainting(); // Show analog
 }
 
 function MCBoxClick(){
     PrintValues();
+    ClockPainting(); // Show analog
 }
 
 
-//Mmain prog =====================
+//Main prog =====================
 function ClockPainting() {
 
     var now = new Date();
@@ -40,7 +39,7 @@ function ClockPainting() {
     DrawArm(radians[0], 'blue', 350);
     DrawArm(radians[1], 'yellow', 320);
 
-    setTimeout("ClockPainting()", 3000);
+    if (glShowCurrent) setTimeout("ClockPainting()", 3000); // Autorun
 }
 
 // Рисуем стрелку

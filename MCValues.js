@@ -14,7 +14,7 @@ function PrintValues(){
     }
 
     if (glShowCurrent)
-        document.getElementById("SocDateLabel").innerHTML = "Сегодня:";
+        document.getElementById("SocDateLabel").innerHTML = "<strong>Сегодня:</strong>";
     else
         document.getElementById("SocDateLabel").innerHTML = "Дата:";
 
@@ -32,27 +32,16 @@ function PrintValues(){
 }
 
 function GetTimeStamp(myDate){
-    if (glShowCurrent == 1){
-      var date = new Date();
-      var hours = date.getHours();
-      var minutes = date.getMinutes();
-      var seconds = date.getSeconds();
-      return PWithZero(hours) + ":" + PWithZero(minutes) + ":" + PWithZero(seconds);
-    }
-    else{
-        return DebugTimeHr + ":" + DebugTimeMin + ":" +  DebugTimeSec;
-    }
+    return PWithZero(myDate.getHours()) + ":"
+         + PWithZero(myDate.getMinutes()) + ":"
+         + PWithZero(myDate.getSeconds());
 }
 
 function GetDateStamp(myDate){
-    if (glShowCurrent == 1){
-        return myDate.getDate() + "." + (myDate.getMonth()+1) + "." +  myDate.getFullYear();
-    }
-    else{
-        return DebugTimeDay + "." + DebugTimeMon + "." +  DebugTimeYear;
-    }
+    return myDate.getDate() + "." +
+          (myDate.getMonth()+1) + "." +
+           myDate.getFullYear();
 }
-
 
 function PWithZero (myNum){
     if (myNum == 0) return "00";
