@@ -11,13 +11,7 @@
 // (document.getElementById("ManContrID").checked);
 
 var glShowCurrent = true;  // если true - то показывать текущее время, иначе отладка
-
-var DebugTimeSec = 0
-var DebugTimeMin = 0
-var DebugTimeHr = 0
-var DebugTimeDay = 1
-var DebugTimeMon = 1
-var DebugTimeYear = 0
+var glDate; // Дата, которая показывается
 
 const LimbTable =
 [["0", 0, 8, 0.008, 1],
@@ -72,15 +66,19 @@ const monthlist =
 [12,31,334]];
 //2 - число прошедших дней в обыкновенном году
 
-function GetFDays(){
-    if (DebugTimeMon > 2){
-        if ((DebugTimeYear % 400 == 0) || ((DebugTimeYear % 4 == 0) && !(DebugTimeYear % 100 == 0)))
-            return (DebugTimeDay+monthlist[DebugTimeMon-1][2]+1);
+function GetFDays(myDate){
+var Year = myDate.getFullYear();
+var Month = myDate.getMonth()+1;
+var Days = myDate.getDate()
+
+    if (Month > 2){
+        if ((Year % 400 == 0) || ((Year % 4 == 0) && !(Year % 100 == 0)))
+            return (Days+monthlist[Month-1][2]+1);
         else
-            return (DebugTimeDay+monthlist[DebugTimeMon-1][2]);
+            return (Days+monthlist[Month-1][2]);
     }
     else{
-        return (DebugTimeDay+monthlist[DebugTimeMon-1][2]);
+        return (Days+monthlist[Month-1][2]);
     }
 }
 
@@ -89,31 +87,17 @@ function GetFDays(){
 // возврат массив 0-земные потом солнечные
 function GetDayRadians(myDateTime){
     var Result = [1,2];
-
     // земные радианы
-    if (glShowCurrent == 1){
-     var now = new Date();
-     var sec = now.getSeconds();
-     var min = now.getMinutes();
-     var hr = now.getHours();
-     var fullecs = (hr*3600 +min*60 + sec);
-    }
-    else{
-      var fullecs = (DebugTimeHr*3600+DebugTimeMin*60+DebugTimeSec);
-    }
-    //console.log(fullecs)
-    var rads = (fullecs * Math.PI / 43200);
+    var sec = myDateTime.getSeconds();
+    var min = myDateTime.getMinutes();
+    var hr = myDateTime.getHours();
+    var fullSecs = hr*3600 +min*60 + sec;
+    //console.log(fullSecs)
+    var rads = (fullSecs * Math.PI / 43200);
     Result[0] = rads;
 
     // солнечные радианы
-    var date = new Date();
-   // var start = new Date(date.getFullYear(), 0, 1);
-    if (glShowCurrent == 1){
-     var diff = now/1000; // в секундах
-    }
-    else{
-      var diff = ((GetFDays()-1)*86400 + DebugTimeHr*3600 + DebugTimeMin*60 + DebugTimeSec);//Без учёта прошлых лет!
-    }
+    var diff = (GetFDays(myDateTime)-1)*86400 + hr*3600 + min*60 + sec;//Без учёта прошлых лет!
     const TY = 31556925.2; // тропический год в секундах
     rads = (diff / TY * 2 * Math.PI)%(2*Math.PI);
     Result[1] = rads;
@@ -126,7 +110,6 @@ function RadCompareDescript(myRads){
 const SMBPI = "&#960";
 var found1 = -1;
 var found2 = -1;
-
 
     if (myRads <=LimbTable[0][3]) return "(0)";
     if (myRads >= (2*Math.PI-LimbTable[0][3])) return "(2"+SMBPI+")";

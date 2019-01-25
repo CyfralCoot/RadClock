@@ -1,16 +1,17 @@
-
+// Главный запускающий файл проекта
 
 function PrintValues(){
     glShowCurrent = !document.getElementById("ManContrID").checked;
-    var date = new Date();
+
+    glDate = new Date();
     if (!glShowCurrent) {
         DebugTimeYear = document.getElementById("YearFld").value;
-        DebugTimeMon = document.getElementById("MonFld").value;
+        DebugTimeMon = document.getElementById("MonFld").value-1;
         DebugTimeDay = document.getElementById("DayFld").value;
         DebugTimeHr = document.getElementById("HrFld").value;
         DebugTimeMin = document.getElementById("MinFld").value;
         DebugTimeSec = document.getElementById("SecFld").value;
-        date = new Date(DebugTimeYear, DebugTimeMon, DebugTimeDay,DebugTimeHr, DebugTimeMin, DebugTimeSec);
+        glDate = new Date(DebugTimeYear, DebugTimeMon, DebugTimeDay,DebugTimeHr, DebugTimeMin, DebugTimeSec);
     }
 
     if (glShowCurrent)
@@ -18,15 +19,18 @@ function PrintValues(){
     else
         document.getElementById("SocDateLabel").innerHTML = "Дата:";
 
-    document.getElementById("SocDateID").innerHTML = GetDateStamp(date)
-    document.getElementById("SocTimeID").innerHTML = GetTimeStamp(date)
+    document.getElementById("SocDateID").innerHTML = GetDateStamp(glDate)
+    document.getElementById("SocTimeID").innerHTML = GetTimeStamp(glDate)
 
-    var radians = GetDayRadians(date);
+    var radians = GetDayRadians(glDate);
+    //console.log(glDate);
     document.getElementById("RadiansSunID").innerHTML  = radians[1].toFixed(4);
     document.getElementById("RadiansTeroID").innerHTML = radians[0].toFixed(3);
 
     document.getElementById("RadiansTeroOboznID").innerHTML = RadCompareDescript(radians[0]);
     document.getElementById("RadiansSunOboznID").innerHTML =  RadCompareDescript(radians[1]);
+
+    ClockPainting();  // Main Drawing
 
     if (glShowCurrent) setTimeout("PrintValues()", 1000); // Auto run
 }
