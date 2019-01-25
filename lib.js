@@ -1,3 +1,6 @@
+// Главный файл проекта. Глобальные переменные ставить здесь.
+
+
 //TODO
 // обычные цифры (римские)
 // градусы с символом градусов
@@ -7,7 +10,7 @@
 //Подобрать форму стрелок
 // (document.getElementById("ManContrID").checked);
 
-var ShowTime = 1;  //0 - время отладки
+var glShowCurrent = true;  // если true - то показывать текущее время, иначе отладка
 
 var DebugTimeSec = 0
 var DebugTimeMin = 0
@@ -88,7 +91,7 @@ function GetDayRadians(myDateTime){
     var Result = [1,2];
 
     // земные радианы
-    if (ShowTime == 1){
+    if (glShowCurrent == 1){
      var now = new Date();
      var sec = now.getSeconds();
      var min = now.getMinutes();
@@ -105,7 +108,7 @@ function GetDayRadians(myDateTime){
     // солнечные радианы
     var date = new Date();
    // var start = new Date(date.getFullYear(), 0, 1);
-    if (ShowTime == 1){
+    if (glShowCurrent == 1){
      var diff = now/1000; // в секундах
     }
     else{

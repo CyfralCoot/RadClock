@@ -4,13 +4,16 @@ var clockImage;
 
 ClockPainting();  // Main Drawing
 
-
-
-
 function MCManCalculate(){
-    document.getElementById("ManContrID").checked = 1;
+    document.getElementById("ManContrID").checked = 1; //  switch to manual
+
+    PrintValues();
     //setTimeout("PrintValues()", 1);
     //console.log(document.getElementById("ManContrID").checked);
+}
+
+function MCBoxClick(){
+    PrintValues();
 }
 
 

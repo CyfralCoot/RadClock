@@ -1,14 +1,23 @@
 
-DebugTimeYear = document.getElementById("YearFld").value;
-DebugTimeMon = document.getElementById("MonFld").value;
-DebugTimeDay = document.getElementById("DayFld").value;
-DebugTimeHr = document.getElementById("HrFld").value;
-DebugTimeMin = document.getElementById("MinFld").value;
-DebugTimeSec = document.getElementById("SecFld").value;
 
 function PrintValues(){
-    ShowTime = !document.getElementById("ManContrID").checked;
+    glShowCurrent = !document.getElementById("ManContrID").checked;
     var date = new Date();
+    if (!glShowCurrent) {
+        DebugTimeYear = document.getElementById("YearFld").value;
+        DebugTimeMon = document.getElementById("MonFld").value;
+        DebugTimeDay = document.getElementById("DayFld").value;
+        DebugTimeHr = document.getElementById("HrFld").value;
+        DebugTimeMin = document.getElementById("MinFld").value;
+        DebugTimeSec = document.getElementById("SecFld").value;
+        date = new Date(DebugTimeYear, DebugTimeMon, DebugTimeDay,DebugTimeHr, DebugTimeMin, DebugTimeSec);
+    }
+
+    if (glShowCurrent)
+        document.getElementById("SocDateLabel").innerHTML = "Сегодня:";
+    else
+        document.getElementById("SocDateLabel").innerHTML = "Дата:";
+
     document.getElementById("SocDateID").innerHTML = GetDateStamp(date)
     document.getElementById("SocTimeID").innerHTML = GetTimeStamp(date)
 
@@ -19,12 +28,11 @@ function PrintValues(){
     document.getElementById("RadiansTeroOboznID").innerHTML = RadCompareDescript(radians[0]);
     document.getElementById("RadiansSunOboznID").innerHTML =  RadCompareDescript(radians[1]);
 
-    if (ShowTime == 1)
-        setTimeout("PrintValues()", 1000);
+    if (glShowCurrent) setTimeout("PrintValues()", 1000); // Auto run
 }
 
 function GetTimeStamp(myDate){
-    if (ShowTime == 1){
+    if (glShowCurrent == 1){
       var date = new Date();
       var hours = date.getHours();
       var minutes = date.getMinutes();
@@ -37,7 +45,7 @@ function GetTimeStamp(myDate){
 }
 
 function GetDateStamp(myDate){
-    if (ShowTime == 1){
+    if (glShowCurrent == 1){
         return myDate.getDate() + "." + (myDate.getMonth()+1) + "." +  myDate.getFullYear();
     }
     else{

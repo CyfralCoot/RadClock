@@ -22,7 +22,7 @@
         <table class="ClDetails">
           <tbody>
             <tr>
-                <td><strong>Сегодня:</strong></td>
+                <td id="SocDateLabel"><strong>Сегодня:</strong></td>
                 <td id="SocDateID">5.12.2018</td>
                 <td></td>
                 <td id="SocTimeID">20:15:51</td>
@@ -64,7 +64,7 @@
                       <input id="SecFld" type="text" name="Seconds" size="2" maxlength="2" value="0">
 
                 <input type="button" class="clButtonCalc" name="Calculate" value="Вывести" onclick="MCManCalculate()">
-                <input type="checkbox" id="ManContrID" name="option2" value="11" >Ручн. упр.
+                <input type="checkbox" id="ManContrID" name="option2" value="11" onclick="MCBoxClick()">
         </form>
     </div>
 
