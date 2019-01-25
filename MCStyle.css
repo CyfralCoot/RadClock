@@ -38,6 +38,12 @@ table {
 }
 
 
+.clManCntrl{
+    border: 2px solid yellow;
+    font: 15px Arial;
+    text-align: left;
+}
+
 .divBottom{
     float: bottom;
     width: 645px;

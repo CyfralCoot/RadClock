@@ -5,16 +5,16 @@
 //?выключатель стрелок
 //шрифт по весу
 //Подобрать форму стрелок
+// (document.getElementById("ManContrID").checked);
 
+var ShowTime = 1;  //0 - время отладки
 
-const ShowTime = 1; //0 - время отладки
-
-const DebugTimeSec = 0; //В секундах
-const DebugTimeMin = 0; //В минутах
-const DebugTimeHr = 0; //В часах
-const DebugTimeDay = 1; //В сутках
-const DebugTimeMon = 1; //Месяц
-const DebugTimeYear = 2018; //В годах
+var DebugTimeSec = 0
+var DebugTimeMin = 0
+var DebugTimeHr = 0
+var DebugTimeDay = 1
+var DebugTimeMon = 1
+var DebugTimeYear = 0
 
 const LimbTable =
 [["0", 0, 8, 0.008, 1],
@@ -71,15 +71,13 @@ const monthlist =
 
 function GetFDays(){
     if (DebugTimeMon > 2){
-    if ((DebugTimeYear % 400 == 0) || ((DebugTimeYear % 4 == 0) && !(DebugTimeYear % 100 == 0))){
-        return (DebugTimeDay+monthlist[DebugTimeMon-1][2]+1);
-        }
+        if ((DebugTimeYear % 400 == 0) || ((DebugTimeYear % 4 == 0) && !(DebugTimeYear % 100 == 0)))
+            return (DebugTimeDay+monthlist[DebugTimeMon-1][2]+1);
+        else
+            return (DebugTimeDay+monthlist[DebugTimeMon-1][2]);
+    }
     else{
         return (DebugTimeDay+monthlist[DebugTimeMon-1][2]);
-    }
-    }
-    else{
-     return (DebugTimeDay+monthlist[DebugTimeMon-1][2]);
     }
 }
 
@@ -100,22 +98,23 @@ function GetDayRadians(myDateTime){
     else{
       var fullecs = (DebugTimeHr*3600+DebugTimeMin*60+DebugTimeSec);
     }
-    var rads = fullecs*Math.PI/43200;
+    //console.log(fullecs)
+    var rads = (fullecs * Math.PI / 43200);
     Result[0] = rads;
 
     // солнечные радианы
     var date = new Date();
-    var start = new Date(date.getFullYear(), 0, 1);
+   // var start = new Date(date.getFullYear(), 0, 1);
     if (ShowTime == 1){
-     var diff = (now - start)/1000; // в секундах
+     var diff = now/1000; // в секундах
     }
     else{
-      var diff = ((GetFDays()-1)*86400+DebugTimeHr*3600+DebugTimeMin*60+DebugTimeSec);
+      var diff = ((GetFDays()-1)*86400 + DebugTimeHr*3600 + DebugTimeMin*60 + DebugTimeSec);//Без учёта прошлых лет!
     }
     const TY = 31556925.2; // тропический год в секундах
-    rads = diff / TY * 2 * Math.PI;
+    rads = (diff / TY * 2 * Math.PI)%(2*Math.PI);
     Result[1] = rads;
-
+    //console.log(diff)
     return Result;
 }
 

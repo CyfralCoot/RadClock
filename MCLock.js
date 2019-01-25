@@ -6,9 +6,16 @@ ClockPainting();  // Main Drawing
 
 
 
+
+function MCManCalculate(){
+    document.getElementById("ManContrID").checked = 1;
+    //setTimeout("PrintValues()", 1);
+    //console.log(document.getElementById("ManContrID").checked);
+}
+
+
 //Mmain prog =====================
 function ClockPainting() {
-
 
     var now = new Date();
     var sec = now.getSeconds();
@@ -29,7 +36,6 @@ function ClockPainting() {
     var radians = GetDayRadians(now);
     DrawArm(radians[0], 'blue', 350);
     DrawArm(radians[1], 'yellow', 320);
-
 
     setTimeout("ClockPainting()", 3000);
 }
