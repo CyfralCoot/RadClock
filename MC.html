@@ -1,6 +1,5 @@
-﻿<!DOCTYPE html>
-<html lang="ru">
-<head>
+<!DOCTYPE html>
+<html lang="ru"><head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Часы математика. Уголок FXY. </title>
     <meta name="keywords" content="программы, часы, календари, астрономия">
@@ -13,35 +12,65 @@
 <!-- <body onload="LoadClocks()"> -->
 
 <body>
-    <div class="divMain">
+<div class="divMain">
     <div class="divMCScript"><canvas width="750px" height="750px" id="DivMCClock"></canvas>
         <script type="text/javascript" src="MCLock.js"></script>
     </div>
 
 
-<div>
-    <table class="ClDetails">
-      <tbody>
-        <tr>
-            <td><strong>Сегодня:</strong></td>
-            <td id="SocDateID">5.12.2018</td>
-            <td></td>
-            <td id="SocTimeID">20:15:51</td>
-            <td></td>
-        </tr>
-        <tr>
-            <td><strong>Радианы:</strong></td>
-            <td id="RadiansSunID">5.917</td>
-            <td id="RadiansSunOboznID" class="clObozn"></td>
-            <td id="RadiansTeroID">5.3051</td>
-            <td id="RadiansTeroOboznID" class="clObozn"></td>
-        </tr>
-      </tbody>
-    </table>
-    <script type="text/javascript" src="MCValues.js"></script>
-</div>
+    <div>
+        <table class="ClDetails">
+          <tbody>
+            <tr>
+                <td id="SocDateLabel"><strong>Сегодня:</strong></td>
+                <td id="SocDateID">5.12.2018</td>
+                <td></td>
+                <td id="SocTimeID">20:15:51</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><strong>Радианы:</strong></td>
+                <td id="RadiansSunID">5.917</td>
+                <td id="RadiansSunOboznID" class="clObozn"></td>
+                <td id="RadiansTeroID">5.3051</td>
+                <td id="RadiansTeroOboznID" class="clObozn"></td>
+            </tr>
+          </tbody>
+        </table>
+    </div>
 
-</div>
+    <div class= "clManCntrl">
+        <form name="Form1">
+            Дата:<input id="DayFld" type="text" name="Day" size="2" maxlength="2" value="7">
+                <select id="MonFld" name="Month">
+                <option value="1" selected="4">января</option>
+                <option value="2">февраля</option>
+                <option value="3">марта</option>
+                <option value="4">апреля</option>
+                <option value="5">мая</option>
+                <option value="6">июня</option>
+                <option value="7">июля</option>
+                <option value="8">августа</option>
+                <option value="9">сентября</option>
+                <option value="10">октября</option>
+                <option value="11">ноября</option>
+                <option value="12">декабря</option>
+                </select>
+
+                <input id="YearFld" type="text" name="Year" size="4" maxlength="4" value="2019">
+
+                Время:<input id="HrFld" type="text" name="Hours" size="2" maxlength="2" value="0">:
+                      <input id="MinFld" type="text" name="Minutes" size="2" maxlength="2" value="0">:
+                      <input id="SecFld" type="text" name="Seconds" size="2" maxlength="2" value="0">
+
+                <input type="button" class="clButtonCalc" name="Calculate" value="Вывести" onclick="MCManCalculate()">
+                <input type="checkbox" id="ManContrID" name="option2" value="11" onclick="MCBoxClick()">
+        </form>
+    </div>
+
+    <script type="text/javascript" src="MCValues.js"></script>
+
+</div> <!-- Main -->
 
 
 <div class="divBottom">

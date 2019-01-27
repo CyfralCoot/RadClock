@@ -1,43 +1,51 @@
-
+// Главный запускающий файл проекта
 
 function PrintValues(){
-    var date = new Date();
-    document.getElementById("SocDateID").innerHTML = GetDateStamp(date)
-    document.getElementById("SocTimeID").innerHTML = GetTimeStamp(date)
+    glShowCurrent = !document.getElementById("ManContrID").checked;
 
-    var radians = GetDayRadians(date);
+    glDate = new Date();
+    if (!glShowCurrent) {
+        DebugTimeYear = document.getElementById("YearFld").value;
+        DebugTimeMon = document.getElementById("MonFld").value-1;
+        DebugTimeDay = document.getElementById("DayFld").value;
+        DebugTimeHr = document.getElementById("HrFld").value;
+        DebugTimeMin = document.getElementById("MinFld").value;
+        DebugTimeSec = document.getElementById("SecFld").value;
+        glDate = new Date(DebugTimeYear, DebugTimeMon, DebugTimeDay, DebugTimeHr, DebugTimeMin, DebugTimeSec);
+    }
+
+    if (glShowCurrent)
+        document.getElementById("SocDateLabel").innerHTML = "<strong>Сегодня:</strong>";
+    else
+        document.getElementById("SocDateLabel").innerHTML = "Дата:";
+
+    document.getElementById("SocDateID").innerHTML = GetDateStamp(glDate)
+    document.getElementById("SocTimeID").innerHTML = GetTimeStamp(glDate)
+
+    var radians = GetDayRadians(glDate);
+    //console.log(glDate);
     document.getElementById("RadiansSunID").innerHTML  = radians[1].toFixed(4);
     document.getElementById("RadiansTeroID").innerHTML = radians[0].toFixed(3);
 
     document.getElementById("RadiansTeroOboznID").innerHTML = RadCompareDescript(radians[0]);
     document.getElementById("RadiansSunOboznID").innerHTML =  RadCompareDescript(radians[1]);
 
+    ClockPainting();  // Main Drawing
 
-    setTimeout("PrintValues()", 1000);
+    if (glShowCurrent) setTimeout("PrintValues()", 1000); // Auto run
 }
 
 function GetTimeStamp(myDate){
-    if (ShowTime == 1){
-     var date = new Date();
-     var hours = date.getHours();
-     var minutes = date.getMinutes();
-     var seconds = date.getSeconds();
-     return PWithZero(hours) + ":" + PWithZero(minutes) + ":" + PWithZero(seconds);
-    }
-    else{
-      return DebugTimeHr + ":" + DebugTimeMin + ":" +  DebugTimeSec;
-    }
+    return PWithZero(myDate.getHours()) + ":"
+         + PWithZero(myDate.getMinutes()) + ":"
+         + PWithZero(myDate.getSeconds());
 }
 
 function GetDateStamp(myDate){
-    if (ShowTime == 1){
-     return myDate.getDate() + "." + (myDate.getMonth()+1) + "." +  myDate.getFullYear();
-    }
-    else{
-      return DebugTimeDay + "." + DebugTimeMon + "." +  DebugTimeYear;
-    }
+    return myDate.getDate() + "." +
+          (myDate.getMonth()+1) + "." +
+           myDate.getFullYear();
 }
-
 
 function PWithZero (myNum){
     if (myNum == 0) return "00";
